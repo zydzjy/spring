@@ -12,4 +12,4 @@ eureka:
     fetchRegistry: true
     serviceUrl:
       defaultZone: 
-        http://127.0.0.1:8080/eureka/,http://127.0.0.1:8081/eureka/
+        http://eurekaUser:eurekaPwd@127.0.0.1:8080/eureka/,http://eurekaUser:eurekaPwd@127.0.0.1:8081/eureka/

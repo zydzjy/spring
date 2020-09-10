@@ -1,6 +1,14 @@
 spring: 
   application: 
     name: eurekaServer
+  security:
+    basic:  
+      enabled: true  
+    user: 
+      name: "eurekaUser"
+      password: "eurekaPwd"
+      #_originalPwd: "eurekaPwd"
+      #password: "$2a$10$xFBzhHiQ0rB0B.QK8dkH5eSzZeVqxzqfRccSX/PbFOg9XWn48.X8S"
 ---
 spring:
   profiles: eurekaServer1
@@ -12,7 +20,7 @@ eureka:
     registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
-      defaultZone: http://127.0.0.1:8081/eureka/
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@127.0.0.1:8081/eureka/
 ---
 spring:
   profiles: eurekaServer2
@@ -24,4 +32,4 @@ eureka:
     registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
-      defaultZone: http://127.0.0.1:8080/eureka/
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@127.0.0.1:8080/eureka/
