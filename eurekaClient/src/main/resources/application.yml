@@ -1,0 +1,15 @@
+spring: 
+  application: 
+    name: eurekaClient
+eureka:
+  instance:
+    #hostname: localhost
+    #ip-address: 127.0.0.1 #不指定，默认使用本机的IP地址
+    #优选使用IP地址注册到EUREKA SERVER
+    prefer-ip-address: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: 
+        http://127.0.0.1:8080/eureka/,http://127.0.0.1:8081/eureka/
