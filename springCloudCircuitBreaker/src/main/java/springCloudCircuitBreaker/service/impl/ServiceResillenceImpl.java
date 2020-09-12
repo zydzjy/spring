@@ -13,9 +13,9 @@ public class ServiceResillenceImpl implements TestService {
 	
 	private RestTemplate rest;
 	@Autowired
-	private CircuitBreakerFactory slowCustomizer;
+	private CircuitBreakerFactory<?, ?> slowCustomizer;
 
-	public ServiceResillenceImpl(RestTemplate rest, CircuitBreakerFactory cbFactory) {
+	public ServiceResillenceImpl(RestTemplate rest, CircuitBreakerFactory<?, ?> cbFactory) {
 		this.rest = rest;
 		this.slowCustomizer = cbFactory;
 	}
@@ -23,7 +23,7 @@ public class ServiceResillenceImpl implements TestService {
 	@Override
 	public String slow() {
 		return slowCustomizer.create("slow").run(() -> 
-			rest.getForObject("/slow", String.class), 
+			rest.getForObject("http://localhost:8080/test2", String.class), 
 			throwable -> "fallback");
 	}
 }

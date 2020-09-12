@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,21 +18,22 @@ public class TestController {
 	@Autowired
 	TestService serviceResillenceImpl;
 	
-	@RequestMapping("/test1")
+	@RequestMapping(path="/test1",produces = MediaType.TEXT_PLAIN_VALUE)
 	@ResponseBody
-	public Map<String,Object> test1() {
-		System.out.println(serviceResillenceImpl.slow());
-		return null;
+	public String test1() {
+		String resultStr = serviceResillenceImpl.slow();
+		System.out.println(resultStr);
+		return resultStr;
 	}
 	
 	@Value("${someParam}")
 	private String someParam;
 	
-	@RequestMapping("/test2")
+	@RequestMapping(path="/test2",produces = MediaType.TEXT_PLAIN_VALUE)
 	@ResponseBody
-	public Map<String,Object> test2() {
+	public String test2() {
 		Map<String,Object> result = new HashMap<String,Object>();
 		result.put("instanceId", someParam);
-		return result;
+		return result.toString();
 	}
 }
