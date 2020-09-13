@@ -1,4 +1,4 @@
-package springSecurity.config;
+package springSecurity.config.security;
 
 import java.util.Collection;
 

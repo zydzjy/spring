@@ -1,0 +1,3 @@
+1)RedisSessionConfig中的@EnableRedisHttpSession：
+创建实现filter的springSessionRepositoryFilter类，负责用spring session替换
+httpSession。在这个例子中，Spring会话由Redis支持。
