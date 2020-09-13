@@ -3,15 +3,10 @@ spring:
     zookeeper:
       enabled: true
       connectString: localhost:2181
-      #配置优先级
-      #远程配置（zookeeper等） > 命令行参数配置 > application.yml> bootstrap.yml  root: configuration
       config: 
         #true:开启zookeeper外部化配置, false:读取本地配置; 
         enabled: true
-        #/appConfigs/{application-name}::{profile}/{key}={value}
         root: appConfigs
-        #/appConfigs/apps::{profile}/key应用所有程序
-        #如果/appConfigs/{application-name}::{profile}没有对应的key则应有该目录下对应的key,
         defaultContext: apps
         profileSeparator: '::'
         watcher:

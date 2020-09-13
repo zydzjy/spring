@@ -1,0 +1,6 @@
+1)zookeeper配置信息必须在bootstrap.yml中
+2)配置项在zookeeper中的路径：/{root}/{application-name}{profileSeparator}{profile}/{key}
+3)/{root}/{defaultContext}{profileSeparator}{profile}/key应用所有程序
+如果/{root}/{application-name}{profileSeparator}{profile}/没有对应的key则应有该目录下对应的key,
+4)配置优先级:
+远程配置（zookeeper等） > 命令行参数配置 > application.yml> bootstrap.yml
