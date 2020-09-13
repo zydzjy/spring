@@ -1,0 +1,17 @@
+spring: 
+  application: 
+    name: springSecurity
+  thymeleaf:
+    cache: false
+    #check-template: true
+    #check-template-location: true
+    content-type: text/html
+    enabled: true
+    encoding: UTF-8
+    mode: HTML
+    prefix: classpath:/templates/
+    #prefix: "file:E:\\Workspace\\source\\springCloud\\springCloudTest\\web\\templates\\"
+    suffix: .th
+server:
+  servlet: 
+    context-path: /springSecurity/v1.0
