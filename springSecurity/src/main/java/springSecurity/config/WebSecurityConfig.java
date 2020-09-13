@@ -58,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.clearAuthentication(true)//清除认证信息
 			.logoutSuccessUrl("/login")//成功退出之后跳转到登录页面
 			.invalidateHttpSession(true)
-			.and().csrf().disable()//disable csrf,所有 logout url可以GET,POST，否则只能是POST
+			.and().csrf().disable()//disable csrf,所以logout url可以GET,POST，否则只能是POST
 			;
 //		http.authorizeRequests().antMatchers("/login/form").permitAll().antMatchers("/securityPages/**")
 //				.access("hasRole('ROLE1')").and().formLogin().defaultSuccessUrl(this.defaultSuccessUrl)// 如果用户登陆之前，没有访问受保护的页面，默认跳转到页面
