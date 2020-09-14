@@ -5,7 +5,11 @@
 </head>
 
 <body>
-	<h1>This is security home page!</h1>
+	<h1>Welcome <font color="red"><span th:text="${USER}"></span></font></h1>
+	<h2>This is security home page!</h2>
+	<br />
+	There is an attribute stored in session:
+		<font color="orange"><span th:text="${session.SOMESEESIONATTR}"></span></font>
 	<br />
 	<a th:href="@{/doLogout}">退 出</a>
 </body>
