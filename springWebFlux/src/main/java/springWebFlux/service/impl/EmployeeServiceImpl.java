@@ -5,13 +5,13 @@ import org.springframework.stereotype.Service;
 
 import reactor.core.publisher.Mono;
 import springWebFlux.bean.Employee;
-import springWebFlux.dao.EmployeeRepository;
+import springWebFlux.dao.EmployeeReactiveMongoRepository;
 import springWebFlux.service.EmployeeService;
 
-@Service("employeeServiceImpl")
+@Service("employeeServiceReactiveMongodbImpl")
 public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
-	EmployeeRepository employeeRepo;
+	EmployeeReactiveMongoRepository employeeRepo;
 
 	@Override
 	public Mono<Employee> findById(Integer id) {

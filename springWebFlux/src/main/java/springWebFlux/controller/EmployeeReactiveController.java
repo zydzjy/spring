@@ -21,19 +21,22 @@ import springWebFlux.service.EmployeeService;
 public class EmployeeReactiveController {
 	
 	@Autowired
-	private EmployeeService employeeServiceImpl;
+	private EmployeeService employeeServiceReactiveMongodbImpl;
+	
+	@Autowired
+	private EmployeeService employeeServiceReactiveMysqlImpl;
 	
 	@RequestMapping(value = { "/create", "/" }, method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public void create(@RequestBody Employee e) {
-		employeeServiceImpl.create(e);
+		employeeServiceReactiveMongodbImpl.create(e);
     }
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<Mono<Employee>> findById(@PathVariable("id") Integer id) {
-		Mono<Employee> e = employeeServiceImpl.findById(id);
+		Mono<Employee> e = employeeServiceReactiveMongodbImpl.findById(id);
 		HttpStatus status = e != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
 		return new ResponseEntity<Mono<Employee>>(e, status);
 	}
