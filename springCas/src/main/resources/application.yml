@@ -1,0 +1,29 @@
+spring: 
+  application: 
+    name: springCas
+  thymeleaf: 
+    cache: false
+    #check-template: true
+    #check-template-location: true
+    content-type: text/html
+    enabled: true
+    encoding: UTF-8
+    mode: HTML
+    prefix: classpath:/templates/
+    #prefix: "file:E:\\Workspace\\source\\springCloud\\springCloudTest\\web\\templates\\"
+    suffix: .html
+  
+server:
+  port: 8086
+  servlet: 
+    context-path: /springCas/v1.0
+casCallbackAddr: http://localhost:${server.port}
+security: 
+  cas: 
+    serverAddr: https://localhost:9999
+    callbackUrl: /login/cas
+    serviceUrl: 
+      ${casCallbackAddr}${server.servlet.context-path}${security.cas.callbackUrl}
+    loginUrl: ${security.cas.serverAddr}/cas/login
+    logoutUrl: ${security.cas.serverAddr}/cas/logout?service=${casCallbackAddr}${server.servlet.context-path}/security/logoutCas
+    ticketValidatorUrl: ${security.cas.serverAddr}/cas
