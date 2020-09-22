@@ -24,18 +24,18 @@ public class JdbcReactiveController {
 	MySqlConnectionConfiguration configuration = MySqlConnectionConfiguration.builder().host("localhost").port(3306)
 			.database("testdb").username("root").password("12345678").build();
 	ConnectionFactory connectionFactory = MySqlConnectionFactory.from(configuration);
-	ConnectionPoolConfiguration poolConfiguration = ConnectionPoolConfiguration.builder(connectionFactory)
-			   .maxIdleTime(Duration.ofMillis(1000))
-			   .maxSize(120)
-			   .build();
-	ConnectionPool pool = new ConnectionPool(poolConfiguration);
+//	ConnectionPoolConfiguration poolConfiguration = ConnectionPoolConfiguration.builder(connectionFactory)
+//			   .maxIdleTime(Duration.ofMillis(1000))
+//			   .maxSize(120)
+//			   .build();
+//	ConnectionPool pool = new ConnectionPool(poolConfiguration);
 			 
 	 
 	@RequestMapping(path="findAll",method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<Flux<String>> findAll() {
 		// Creating a Mono using Project Reactor
-		Mono<Connection> connectionMono = pool.create();
+		Mono<Connection> connectionMono = Mono.from(connectionFactory.create());
 		Flux<String> e = connectionMono
 				.flatMapMany(
 						connection ->
@@ -43,7 +43,7 @@ public class JdbcReactiveController {
 						 )
 				.flatMap(result -> result.map((row, rowMetadata) -> row.get("col1", String.class)))
 				;
-		
+		connectionMono.subscribe().dispose();
 		HttpStatus status = e != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
 		return new ResponseEntity<Flux<String>>(e, status);
 	}
