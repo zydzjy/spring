@@ -5,20 +5,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.r2dbc.config.AbstractR2dbcConfiguration;
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 
-import dev.miku.r2dbc.mysql.MySqlConnectionConfiguration;
-import dev.miku.r2dbc.mysql.MySqlConnectionFactory;
 import io.r2dbc.spi.ConnectionFactories;
 import io.r2dbc.spi.ConnectionFactory;
 
 @Configuration
-@EnableR2dbcRepositories(basePackages="springWebFlux.dao")
+@EnableR2dbcRepositories(basePackages 
+		= "springWebFlux.dao")
 public class ReactiveMysqlConfig extends AbstractR2dbcConfiguration {
-
-	@Override
+	
 	@Bean
+	@Override
 	public ConnectionFactory connectionFactory() {
 		ConnectionFactory connectionFactory = ConnectionFactories.get(
-			    "r2dbcs:mysql://root:12345678@127.0.0.1:3306/testdb");
+			    "r2dbc:pool:mysql://root:12345678@127.0.0.1:3306/testdb");
 		return connectionFactory;
 	}
 }

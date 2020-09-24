@@ -14,13 +14,11 @@ import dev.miku.r2dbc.mysql.MySqlConnectionConfiguration;
 import dev.miku.r2dbc.mysql.MySqlConnectionFactory;
 import io.r2dbc.pool.ConnectionPool;
 import io.r2dbc.pool.ConnectionPoolConfiguration;
-import io.r2dbc.spi.Closeable;
 import io.r2dbc.spi.Connection;
 import io.r2dbc.spi.ConnectionFactory;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import springWebFlux.bean.Person;
-import springWebFlux.dao.PersonRepository;
 import springWebFlux.service.PersonService;
 
 @Controller
@@ -34,39 +32,25 @@ public class JdbcReactiveController {
 //			   .maxSize(120)
 //			   .build();
 //	ConnectionPool pool = new ConnectionPool(poolConfiguration);
-
-	@RequestMapping(path = "findAll", method = RequestMethod.GET)
+			 
+	 
+	@RequestMapping(path="findAll",method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<Flux<Person>> findAll() {
 //		// Creating a Mono using Project Reactor
-//		 Mono<Connection> connectionMono = Mono.from(connectionFactory.create());
-//		// Mono<Connection> connectionMono = this.pool.create();
+//		Mono<Connection> connectionMono = Mono.from(connectionFactory.create());
 //		Flux<String> e = connectionMono
-//				.flatMap((c) -> Mono.from(c.createStatement("SELECT col1 FROM table1 order by col1 asc")
-//						.execute())
-//						.doFinally((st) -> close(c))
-//						)
-//				.flatMapMany(result -> Flux.from(result.map((row, meta) -> {
-//					return row.get("col1", String.class);
-//				})))
-//			;
-////		Flux<String> e = connectionMono
-////				.flatMapMany(
-////						connection ->
-////						 connection.createStatement("SELECT col1 FROM table1 order by col1 asc").execute()
-////						 
-////						 )
-////				.flatMap(result -> result.map((row, rowMetadata) -> row.get("col1", String.class)))
-////				;
+//				.flatMapMany(
+//						connection ->
+//						 connection.createStatement("SELECT col1 FROM table1 order by col1 asc").execute()
+//						 )
+//				.flatMap(result -> result.map((row, rowMetadata) -> row.get("col1", String.class)))
+//				;
+//		connectionMono.subscribe().dispose();
 		Flux<Person> e = personServiceImpl.findAll();
 		HttpStatus status = e != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
 		return new ResponseEntity<Flux<Person>>(e, status);
 	}
 	
-	@Autowired
-	PersonService personServiceImpl;
-	
-	private Object close(Connection c) {
-		return Mono.from(c.close()).then(Mono.empty());
-	}
+	@Autowired private PersonService personServiceImpl; 
 }
