@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import springWebFlux.bean.Person;
 
-//@Repository("personRepository")
 public interface PersonRepository extends R2dbcRepository<Person, Long> {
 
 }
