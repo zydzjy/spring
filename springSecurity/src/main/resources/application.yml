@@ -15,4 +15,4 @@ spring:
 server:
   servlet: 
     context-path: /springSecurity/v1.0
-  session.cookie.name: MYJSESSION
+server.servlet.session.cookie.name: MYJSESSION
