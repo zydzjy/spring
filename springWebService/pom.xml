@@ -47,8 +47,12 @@
 					</execution>
 				</executions>
 				<configuration>
-					<schemaDirectory>${project.basedir}/src/main/resources/</schemaDirectory>
-					<outputDirectory>${project.basedir}/src/main/java</outputDirectory>
+					<sourceType>XmlSchema</sourceType>
+					<packageName>springWebService.ws</packageName>
+					<sources>
+						<source>src/main/resources/student-details.xsd</source>
+					</sources>
+					<outputDirectory>src/main/java</outputDirectory>
 					<clearOutputDir>false</clearOutputDir>
 				</configuration>
 			</plugin>

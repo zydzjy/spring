@@ -7,13 +7,14 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import springWebFlux.bean.Employee;
 import springWebFlux.bean.Person;
-import springWebFlux.dao.PersonR2dbcRepository;
+import springWebFlux.dao.PersonRepository;
 import springWebFlux.service.PersonService;
 
 @Service("personServiceImpl")
 public class PersonServiceImpl implements PersonService {
 	@Autowired 
-	PersonR2dbcRepository personRepo;
+	PersonRepository personRepo;
+	
 	@Override
 	public Flux<Person> findAll() {
 		return this.personRepo.findAll();
