@@ -52,5 +52,13 @@ public class JdbcReactiveController {
 		return new ResponseEntity<Flux<Person>>(e, status);
 	}
 	
+	@RequestMapping(path="add",method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<Flux<Person>> add() {
+		Flux<Person> e = personServiceImpl.findAll();
+		HttpStatus status = e != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+		return new ResponseEntity<Flux<Person>>(e, status);
+	}
+	
 	@Autowired private PersonService personServiceImpl; 
 }
