@@ -1,6 +1,8 @@
 package springWebFlux.controller;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,12 +54,20 @@ public class JdbcReactiveController {
 		return new ResponseEntity<Flux<Person>>(e, status);
 	}
 	
-	@RequestMapping(path="add",method = RequestMethod.GET)
+	@RequestMapping(path="save",method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<Flux<Person>> add() {
-		Flux<Person> e = personServiceImpl.findAll();
-		HttpStatus status = e != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
-		return new ResponseEntity<Flux<Person>>(e, status);
+	public ResponseEntity<Map<String,Object>> save() {
+		Person person = new Person();
+		person.setFirstname("asdf");
+		person.setLastname("asdf");
+		Map<String,Object> result = new HashMap<String,Object>();
+		try {
+			personServiceImpl.savePerson(person);
+			result.put("errorCode", "0000");
+		}catch(Exception e) {
+			result.put("errorCode", "9999");
+		}
+		return new ResponseEntity<Map<String,Object>>(result, HttpStatus.OK);
 	}
 	
 	@Autowired private PersonService personServiceImpl; 
