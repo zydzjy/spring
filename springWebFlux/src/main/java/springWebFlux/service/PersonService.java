@@ -6,5 +6,5 @@ import springWebFlux.bean.Person;
 
 public interface PersonService {
 	public Flux<Person> findAll();
-	public Mono<Long> savePerson(Person person) throws Exception;
+	public Mono<Integer> savePerson(Person person);
 }

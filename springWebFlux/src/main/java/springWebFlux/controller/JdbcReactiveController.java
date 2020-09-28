@@ -56,18 +56,21 @@ public class JdbcReactiveController {
 	
 	@RequestMapping(path="save",method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<Map<String,Object>> save() {
+	public ResponseEntity<Mono<Map<String,Object>>> save() {
 		Person person = new Person();
 		person.setFirstname("asdf");
 		person.setLastname("asdf");
-		Map<String,Object> result = new HashMap<String,Object>();
+		Mono<Map<String,Object>> result = null;
 		try {
-			personServiceImpl.savePerson(person);
-			result.put("errorCode", "0000");
+			result = personServiceImpl.savePerson(person).map(
+					p->{Map<String,Object> _result = new HashMap<String,Object>();
+						_result.put("ID", p);
+					return _result;
+					});
 		}catch(Exception e) {
-			result.put("errorCode", "9999");
+			e.printStackTrace();
 		}
-		return new ResponseEntity<Map<String,Object>>(result, HttpStatus.OK);
+		return new ResponseEntity<Mono<Map<String,Object>>>(result, HttpStatus.OK);
 	}
 	
 	@Autowired private PersonService personServiceImpl; 

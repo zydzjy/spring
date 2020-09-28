@@ -3,7 +3,9 @@ package springWebFlux.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.r2dbc.config.AbstractR2dbcConfiguration;
+import org.springframework.data.r2dbc.connectionfactory.R2dbcTransactionManager;
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
+import org.springframework.transaction.ReactiveTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import io.r2dbc.spi.ConnectionFactories;
@@ -21,5 +23,10 @@ public class ReactiveMysqlConfig extends AbstractR2dbcConfiguration {
 		ConnectionFactory connectionFactory = ConnectionFactories.get(
 			    "r2dbc:pool:mysql://root:12345678@127.0.0.1:3306/testdb");
 		return connectionFactory;
+	}
+	
+	@Bean
+	public ReactiveTransactionManager txManager() {
+		return new R2dbcTransactionManager(connectionFactory());
 	}
 }
