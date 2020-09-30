@@ -1,3 +1,5 @@
+OAUTH2: client
+
 spring: 
   application: 
     name: springSecurity
