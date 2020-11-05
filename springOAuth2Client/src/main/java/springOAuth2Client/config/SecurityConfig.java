@@ -26,13 +26,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	// @formatter:off
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-//		http.authorizeRequests()
-//			.anyRequest().authenticated()
-//			.and()
-//			.formLogin()
-////				.loginPage("/login")
-////				.failureUrl("/login-error")
-//				.permitAll();
+		http.authorizeRequests()
+			.anyRequest().authenticated()
+			.and()
+			.formLogin()
+//				.loginPage("/login")
+//				.failureUrl("/login-error")
+				.permitAll();
 	}
 	// @formatter:on
 

@@ -24,7 +24,7 @@ security:
         user-authorization-uri: http://${auth-server}/oauth/authorize
         access-token-uri: http://${auth-server}/oauth/token
         scope: message.read, message.write
-        pre-established-redirect-uri: http://localhost:8080/authorized
+        #pre-established-redirect-uri: http://localhost:8080/authorized
         use-current-uri: false
       messaging-client-client-creds:
         client-id: messaging-client

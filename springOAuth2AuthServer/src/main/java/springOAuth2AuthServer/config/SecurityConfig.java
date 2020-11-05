@@ -14,22 +14,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	// @formatter:off
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+//		http
+//			.authorizeRequests()
+//				.antMatchers("/oauth2/keys").permitAll()
+//				.anyRequest().authenticated()
+//				.and()
+//			.formLogin();
 		http
-			.authorizeRequests()
-				.antMatchers("/oauth2/keys").permitAll()
-				.anyRequest().authenticated()
-				.and()
-			.formLogin();
+		.authorizeRequests()
+			.mvcMatchers("/.well-known/jwks.json").permitAll()
+			.anyRequest().authenticated()
+			.and()
+		.httpBasic()
+			.and()
+		.csrf().ignoringRequestMatchers((request) -> "/introspect".equals(request.getRequestURI()));
 	}
 	// @formatter:on
 
 	@Bean
 	public UserDetailsService users() throws Exception {
-		User.UserBuilder users = User.withDefaultPasswordEncoder();
-		InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-		manager.createUser(users.username("user1").password("password").roles("USER").build());
-		manager.createUser(users.username("admin").password("password").roles("USER", "ADMIN").build());
-		return manager;
+		return new InMemoryUserDetailsManager(
+				User.withDefaultPasswordEncoder()
+					.username("subject")
+					.password("password")
+					.roles("USER")
+					.build());
 	}
 
 	@Bean
